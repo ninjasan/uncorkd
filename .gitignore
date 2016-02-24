@@ -45,3 +45,9 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+.idea/encodings.xml
+.idea/modules.xml
+.idea/misc.xml
+*.pyc
+.idea/uncorkd.iml
+.idea/workspace.xml
