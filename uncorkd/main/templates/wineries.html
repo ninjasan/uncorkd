@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for winery in wineries %}
+        <p><a href="{{url_for('.get_wines', winery_id=winery.id)}}">{{winery.name}}</a></p>
+        <p>{{winery.address}}</p>
+    {% endfor %}
+</body>
+</html>
