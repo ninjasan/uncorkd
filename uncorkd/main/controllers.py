@@ -1,12 +1,13 @@
 __author__ = 'poojm'
 
 from flask import Blueprint, render_template, url_for
-#from uncorkd.data.models import City, Activity
-#from uncorkd.data.dbsession import session
+
+from uncorkd.data.models import Winery, Wine
+from uncorkd.data.dbsession import session
 
 main = Blueprint('main', __name__, template_folder='templates')
 
-wineries = [{'id': 0,
+"""wineries = [{'id': 0,
              'name': "Basel Cellars",
              'website': "http://baselcellars.com",
              'address': "15029 Woodinville-Redmond Rd NE #400, Woodinville, WA 98072"},
@@ -41,7 +42,7 @@ all_wines = [{'id': 0,
          {'id': 5,
           'winery_id': 3,
           'name': "2008 KENNEDY SHAH RESERVE LA VIE EN ROUGE"},
-        ]
+        ]"""
 
 @main.route('/')
 def home():
@@ -49,14 +50,27 @@ def home():
     return "Hello!"
 
 
+@main.route('home/')
 @main.route('wineries/')
 def get_wineries():
     """Renders the page about wineries"""
-    #TODO: query wineries
+    wineries = session.query(Winery).all()
     return render_template("wineries.html", wineries=wineries)
 
 
+@main.route('wineries/add')
+def add_winery():
+    return render_template("add_winery.html")
+
+
 @main.route('wineries/<int:winery_id>/')
+@main.route('wineries/<int:winery_id>/wines/')
 def get_wines(winery_id):
-    #TODO: query on wines for this winery_id
-    return render_template("wines.html", wines=all_wines)
+    wines = session.query(Wine).filter(Wine.winery_id == winery_id).all()
+    return render_template("wines.html", wines=wines)
+
+
+@main.route('wineries/<int:winery_id>/wines/<int:wine_id>/')
+def get_wine(winery_id, wine_id):
+    wines = session.query(Wine).filter(Wine.id == wine_id).all()
+    return render_template("wine.html", wine=wines)

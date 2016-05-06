@@ -6,7 +6,7 @@
 </head>
 <body>
     {% for wine in wines %}
-        <p>{{wine.name}}</p>
+        <p><a href="{{url_for('.get_wine', winery_id=0, wine_id=0)}}">{{wine.name}}</a></p>
     {% endfor %}
 </body>
 </html>
