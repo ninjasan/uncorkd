@@ -2,11 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Wines</title>
+    <title>{{winery.name}}</title>
 </head>
 <body>
+    {% if last_visit.date != NULL %}
+        <p>You last visited this winery on: {{last_visit.date}}</p>
+
+    {% endif %}
+
     {% for wine in wines %}
         <p><a href="{{url_for('.get_wine', winery_id=0, wine_id=0)}}">{{wine.name}}</a></p>
     {% endfor %}
+
+    <form action="{{url_for('.winery_visit', winery_id = winery.id)}}" method="post">
+        <!--<input type="hidden" name="winery" value="{{winery.id}}">-->
+        <input type="SUBMIT" name="check-in!" value="Check-in">
+    </form>
 </body>
 </html>
