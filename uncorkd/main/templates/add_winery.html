@@ -5,7 +5,7 @@
     <title>Add Winery</title>
 </head>
 <body>
-    <form>
+    <form action="{{url_for('.add_winery')}}" method="post">
         Name: <input type="text" name="name" value="WineryName"><br>
         Website: <input type="text" name="website" value="www.wineninja.com"><br>
         Address: <input type="text" name="address" value="1234 Wine St. Woodinville, WA"><br>

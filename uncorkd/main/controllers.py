@@ -1,8 +1,8 @@
 __author__ = 'poojm'
 
-from flask import Blueprint, render_template, url_for
+from flask import Blueprint, render_template, url_for, redirect, request
 
-from uncorkd.data.models import Winery, Wine
+from uncorkd.data.models import Winery, Wine, User, Visit, Tasting, Purchase
 from uncorkd.data.dbsession import session
 
 main = Blueprint('main', __name__, template_folder='templates')
@@ -58,9 +58,19 @@ def get_wineries():
     return render_template("wineries.html", wineries=wineries)
 
 
-@main.route('wineries/add')
+@main.route('wineries/add', methods=['GET', 'POST'])
 def add_winery():
-    return render_template("add_winery.html")
+    if request.method == 'POST':
+        '''Add the winery'''
+        winery_to_add = Winery(name=request.form['name'],
+                               address=request.form['address'],
+                               website=request.form['website'])
+        session.add(winery_to_add)
+        session.commit()
+        '''TODO: flash message'''
+        return redirect(url_for('.get_wineries'))
+    else:
+        return render_template("add_winery.html")
 
 
 @main.route('wineries/<int:winery_id>/')
