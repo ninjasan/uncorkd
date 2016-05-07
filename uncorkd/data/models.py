@@ -28,14 +28,14 @@ class User(Base):
     email = Column(String(100))
     picture_url = Column(String(250))
 
-class Visits(Base):
+class Visit(Base):
     __tablename__ = 'visits'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
     winery_id = Column(Integer, ForeignKey('wineries.id'))
     date = Column(Date)
 
-class Purchases(Base):
+class Purchase(Base):
     __tablename__ = 'purchases'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
@@ -44,7 +44,7 @@ class Purchases(Base):
     quantity = Column(Integer)
     date = Column(Date)
 
-class Tastings(Base):
+class Tasting(Base):
     __tablename__ = 'tastings'
     id = Column(Integer, primary_key=True)
     notes = Column(String(1000))
@@ -75,7 +75,7 @@ class Winery(Base):
     name = Column(String(60), nullable=False)
     address = Column(String(100))
     website = Column(String(150))
-    onStNicks = Column(Boolean)
+    onStNicks = Column(Boolean, default=False)
     hours_mon_o = Column(Time)
     hours_mon_c = Column(Time)
     hours_tues_o = Column(Time)
@@ -123,6 +123,5 @@ class Wine(Base):
     image = Column(String(150))
     wineries = relationship(Winery)
 
-
-engine = create_engine('sqlite:///uncorkd.db')
+engine = create_engine('sqlite:///uncorkd4.db')
 Base.metadata.create_all(engine)
